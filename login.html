@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsGenie - Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="auth-body">
+  <button class="theme-toggle floating" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+  <main class="auth-container">
+    <div class="auth-card glass">
+      <div class="brand-head">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="NewsGenie Logo" class="logo-img" />
+        <h1>NewsGenie</h1>
+        <p>Your personalized real-time news companion.</p>
+      </div>
+
+      {% if error %}
+      <div class="alert">{{ error }}</div>
+      {% endif %}
+
+      <div class="auth-tabs">
+        <a href="{{ url_for('login') }}" class="tab {% if mode == 'login' %}active{% endif %}">Login</a>
+        <a href="{{ url_for('signup') }}" class="tab {% if mode == 'signup' %}active{% endif %}">Sign Up</a>
+      </div>
+
+      {% if mode == "signup" %}
+      <form method="POST" action="{{ url_for('signup') }}" class="auth-form">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text" placeholder="John Doe" value="{{ name or '' }}" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" value="{{ email or '' }}" required />
+
+       <label for="password">Password</label>
+       <input id="password" name="password" type="password" placeholder="Create a password" required />
+
+       <input type="checkbox" onclick="togglePassword()"> Show Password
+
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+      {% else %}
+      <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" value="{{ email or '' }}" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter your password" required />
+
+        <button type="submit" class="btn-primary">Login</button>
+      </form>
+      {% endif %}
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

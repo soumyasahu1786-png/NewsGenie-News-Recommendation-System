@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsGenie - Preferences</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body data-page="home">
+  <header class="navbar">
+    <a href="{{ url_for('home') }}" class="brand">
+      <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="NewsGenie Logo" class="logo-img-sm" />
+      <span>NewsGenie</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      <a class="btn-ghost" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel glass fade-up">
+      <h1>Welcome, {{ user.name }} 👋</h1>
+      <p>Tune your interests with sliders and build your personalized NewsGenie feed.</p>
+
+      <form method="POST" action="{{ url_for('set_preferences') }}" id="preferencesForm">
+        <div class="slider-grid">
+          <div class="slider-card">
+            <div class="slider-head"><span>💻 Tech</span><span class="slider-value" data-value-for="tech">0.5</span></div>
+            <input type="range" min="0" max="1" step="0.01" value="0" name="interest_tech" id="interest-tech" class="interest-slider" data-category="tech" />
+          </div>
+          <div class="slider-card">
+            <div class="slider-head"><span>💰 Finance</span><span class="slider-value" data-value-for="finance">0.5</span></div>
+            <input type="range" min="0" max="1" step="0.01" value="0" name="interest_finance" id="interest-finance" class="interest-slider" data-category="finance" />
+          </div>
+          <div class="slider-card">
+            <div class="slider-head"><span>🏅 Sports</span><span class="slider-value" data-value-for="sports">0.5</span></div>
+            <input type="range" min="0" max="1" step="0.01" value="0" name="interest_sports" id="interest-sports" class="interest-slider" data-category="sports" />
+          </div>
+          <div class="slider-card">
+            <div class="slider-head"><span>🩺 Health</span><span class="slider-value" data-value-for="health">0.5</span></div>
+            <input type="range" min="0" max="1" step="0.01" value="0" name="interest_health" id="interest-health" class="interest-slider" data-category="health" />
+          </div>
+          <div class="slider-card">
+            <div class="slider-head"><span>🎬 Entertainment</span><span class="slider-value" data-value-for="entertainment">0.5</span></div>
+            <input type="range" min="0" max="1" step="0.01" value="0" name="interest_entertainment" id="interest-entertainment" class="interest-slider" data-category="entertainment" />
+          </div>
+          <div class="slider-card">
+            <div class="slider-head"><span>📰 General</span><span class="slider-value" data-value-for="general">0.5</span></div>
+            <input type="range" min="0" max="1" step="0.01" value="0" name="interest_general" id="interest-general" class="interest-slider" data-category="general" />
+          </div>
+        </div>
+
+        <div class="voice-row">
+          <button type="button" id="voiceBtn" class="btn-secondary">🎤 Use Voice</button>
+          <span id="voiceStatus" class="muted">Say mixed interests like "tech and sports" or "health aur finance".</span>
+        </div>
+
+        <button type="submit" class="btn-primary">Save & View Feed</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsGenie - Feed</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body data-page="feed" data-categories="{{ (active_categories or [category])|join(',') }}">
+  <header class="navbar">
+    <a href="{{ url_for('home') }}" class="brand">
+      <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="NewsGenie Logo" class="logo-img-sm" />
+      <span>NewsGenie</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      <a class="btn-ghost" href="{{ url_for('home') }}">Preferences</a>
+      <a class="btn-ghost" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="feed-header fade-up">
+      <h1>{{ user.name }}'s Feed</h1>
+      <p>Interests:
+        {% for c in (active_categories or [category]) %}
+          <span class="badge">{{ c.capitalize() }}</span>
+        {% endfor %}
+      </p>
+    </section>
+
+    <section id="loaderWrap" class="loader-wrap">
+      <div class="spinner"></div>
+      <p>Loading fresh headlines...</p>
+    </section>
+
+    <section id="feedGrid" class="news-grid"></section>
+    <section id="emptyState" class="empty-state hidden"></section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
